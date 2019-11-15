@@ -57,6 +57,8 @@ export function registerAnalytics(instance: _FirebaseNamespace): void {
     new Component('analytics-internal', internalFactory, ComponentType.PRIVATE)
   );
 
+  instance.INTERNAL.registerVersionComponent(ANALYTICS_TYPE, version);
+
   function internalFactory(
     container: ComponentContainer
   ): FirebaseAnalyticsInternal {
@@ -87,4 +89,12 @@ declare module '@firebase/app-types' {
   interface FirebaseApp {
     analytics(): FirebaseAnalytics;
   }
+}
+
+declare module '@firebase/component' {
+  interface ComponentContainer {
+    getProvider(name: typeof ANALYTICS_TYPE): Provider<FirebaseAnalytics>;
+  }
+
+  interface Provider<T> {}
 }

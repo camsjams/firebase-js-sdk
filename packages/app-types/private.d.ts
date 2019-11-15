@@ -56,6 +56,10 @@ export interface FirebaseServiceFactory {
   ): FirebaseService;
 }
 
+export interface PlatformLoggerService {
+  getPlatformInfoString(): string;
+}
+
 /**
  * All ServiceNamespaces extend from FirebaseServiceNamespace
  */
@@ -105,6 +109,11 @@ export interface _FirebaseNamespace extends FirebaseNamespace {
      */
     registerComponent(
       component: Component
+    ): FirebaseServiceNamespace<FirebaseService> | null;
+
+    registerVersionComponent(
+      library: string,
+      version: string
     ): FirebaseServiceNamespace<FirebaseService> | null;
 
     /**

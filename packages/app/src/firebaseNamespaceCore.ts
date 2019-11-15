@@ -35,6 +35,7 @@ import { DEFAULT_ENTRY_NAME } from './constants';
 import { version } from '../../firebase/package.json';
 import { logger } from './logger';
 import { Component, ComponentType } from '@firebase/component';
+import { VersionService } from './version-service';
 
 /**
  * Because auth can't share code with other components, we attach the utility functions
@@ -64,6 +65,7 @@ export function createFirebaseNamespaceCore(
     SDK_VERSION: version,
     INTERNAL: {
       registerComponent,
+      registerVersionComponent,
       removeApp,
       components,
       useAsService
@@ -233,6 +235,22 @@ export function createFirebaseNamespaceCore(
         (namespace as any)[componentName]
       : null;
   }
+
+
+function registerVersionComponent(
+  library: string,
+  version: string
+): FirebaseServiceNamespace<FirebaseService> | null {
+  return registerComponent(
+    new Component(
+      `${library}-version`,
+      () => {
+        return new VersionService(library, version);
+      },
+      ComponentType.VERSION
+    )
+  );
+    }
 
   // Map the requested service to a registered service name
   // (used to map auth to serverAuth service when needed).

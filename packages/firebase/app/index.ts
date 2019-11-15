@@ -16,4 +16,11 @@
  */
 
 import firebase from '@firebase/app';
+import { _FirebaseNamespace } from '@firebase/app-types/private';
+
+(firebase as _FirebaseNamespace).INTERNAL.registerVersionComponent(
+  'firebase',
+  firebase.SDK_VERSION
+);
+
 export default firebase;

@@ -15,18 +15,6 @@
  * limitations under the License.
  */
 
-export const DEFAULT_ENTRY_NAME = '[DEFAULT]';
-
-export const platformLogString: { [key: string]: string } = {
-  'firebase': 'fire-js',
-  'app': 'fire-core',
-  'analytics': 'fire-analytics',
-  'auth': 'fire-auth',
-  'database': 'fire-rtdb',
-  'functions': 'fire-fn',
-  'messaging': 'fire-fcm',
-  'performance': 'fire-perf',
-  'remote-config': 'fire-rc',
-  'storage': 'fire-gcs',
-  'firestore': 'fire-fst'
-};
+export class VersionService {
+  constructor(readonly library: string, readonly version: string) {}
+}
