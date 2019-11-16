@@ -34,7 +34,7 @@ import { FirebaseAppLiteImpl } from './lite/firebaseAppLite';
 import { DEFAULT_ENTRY_NAME } from './constants';
 import { version } from '../../firebase/package.json';
 import { logger } from './logger';
-import { Component, ComponentType } from '@firebase/component';
+import { Component, ComponentType, Name } from '@firebase/component';
 import { VersionService } from './version-service';
 
 /**
@@ -243,7 +243,7 @@ function registerVersionComponent(
 ): FirebaseServiceNamespace<FirebaseService> | null {
   return registerComponent(
     new Component(
-      `${library}-version`,
+      `${library}-version` as Name,
       () => {
         return new VersionService(library, version);
       },

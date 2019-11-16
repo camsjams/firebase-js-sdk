@@ -102,8 +102,19 @@ export interface FirebaseNamespace {
   SDK_VERSION: string;
 }
 
+export interface PlatformLoggerService {
+  getPlatformInfoString(): string;
+}
+
+export interface VersionService {
+  library: string;
+  version: string;
+}
+
 declare module '@firebase/component' {
   interface NameServiceMapping {
     'app': FirebaseApp;
+    'app-version': VersionService;
+    'platform-logger': PlatformLoggerService;
   }
 }

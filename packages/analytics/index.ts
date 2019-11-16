@@ -27,6 +27,8 @@ import {
 } from '@firebase/component';
 import { ERROR_FACTORY, AnalyticsError } from './src/errors';
 
+import { version } from './package.json';
+
 declare global {
   interface Window {
     [key: string]: unknown;
@@ -89,12 +91,4 @@ declare module '@firebase/app-types' {
   interface FirebaseApp {
     analytics(): FirebaseAnalytics;
   }
-}
-
-declare module '@firebase/component' {
-  interface ComponentContainer {
-    getProvider(name: typeof ANALYTICS_TYPE): Provider<FirebaseAnalytics>;
-  }
-
-  interface Provider<T> {}
 }
