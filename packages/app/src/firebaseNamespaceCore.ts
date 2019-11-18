@@ -236,21 +236,20 @@ export function createFirebaseNamespaceCore(
       : null;
   }
 
-
-function registerVersionComponent(
-  library: string,
-  version: string
-): FirebaseServiceNamespace<FirebaseService> | null {
-  return registerComponent(
-    new Component(
-      `${library}-version` as Name,
-      () => {
-        return new VersionService(library, version);
-      },
-      ComponentType.VERSION
-    )
-  );
-    }
+  function registerVersionComponent(
+    library: string,
+    version: string
+  ): FirebaseServiceNamespace<FirebaseService> | null {
+    return registerComponent(
+      new Component(
+        `${library}-version` as Name,
+        () => {
+          return new VersionService(library, version);
+        },
+        ComponentType.VERSION
+      )
+    );
+  }
 
   // Map the requested service to a registered service name
   // (used to map auth to serverAuth service when needed).

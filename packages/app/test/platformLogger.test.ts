@@ -28,7 +28,7 @@ import {
 } from '@firebase/component';
 import { VersionService } from '../src/version-service';
 
-declare module "@firebase/component" {
+declare module '@firebase/component' {
   interface NameServiceMapping {
     'vs1': VersionService;
     'vs2': VersionService;
