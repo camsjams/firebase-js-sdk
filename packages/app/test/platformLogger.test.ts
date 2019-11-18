@@ -28,27 +28,35 @@ import {
 } from '@firebase/component';
 import { VersionService } from '../src/version-service';
 
+declare module "@firebase/component" {
+  interface NameServiceMapping {
+    'vs1': VersionService;
+    'vs2': VersionService;
+    'test-shell': Promise<void>;
+  }
+}
+
 describe('Platform Logger Service Unit Tests', () => {
   it(`logs core version`, () => {
     const container = new ComponentContainer('testContainer');
     container.addComponent(
       new Component(
-        'comp1',
-        () => new VersionService('comp1', '1.2.3'),
+        'vs1',
+        () => new VersionService('vs1', '1.2.3'),
         ComponentType.VERSION
       )
     );
     container.addComponent(
       new Component(
-        'comp2',
-        () => new VersionService('comp2', '3.02.01'),
+        'vs2',
+        () => new VersionService('vs2', '3.02.01'),
         ComponentType.VERSION
       )
     );
     const platformLoggerService = new PlatformLoggerService(container);
     const platformInfoString = platformLoggerService.getPlatformInfoString();
-    expect(platformInfoString).to.include('comp1/1.2.3');
-    expect(platformInfoString).to.include('comp2/3.02.01');
+    expect(platformInfoString).to.include('vs1/1.2.3');
+    expect(platformInfoString).to.include('vs2/3.02.01');
   });
 });
 
@@ -63,7 +71,7 @@ describe('Platform Logger Service Integration Tests', () => {
     firebase.initializeApp({});
     (firebase as _FirebaseNamespace).INTERNAL.registerComponent(
       new Component(
-        'test',
+        'test-shell',
         async (container: ComponentContainer) => {
           const platformLoggerProvider = container.getProvider(
             'platform-logger'
@@ -71,12 +79,11 @@ describe('Platform Logger Service Integration Tests', () => {
           const platformLogger = (await platformLoggerProvider.get()) as PlatformLoggerService;
           const platformInfoString = platformLogger.getPlatformInfoString();
           expect(platformInfoString).to.include('fire-core');
-          return {};
         },
         ComponentType.PUBLIC
       )
     );
-    (firebase as any).test();
+    (firebase as any)['test-shell']();
   });
 
   it(`logs other components' versions`, () => {
@@ -87,7 +94,7 @@ describe('Platform Logger Service Integration Tests', () => {
     );
     (firebase as _FirebaseNamespace).INTERNAL.registerComponent(
       new Component(
-        'test',
+        'test-shell',
         async (container: ComponentContainer) => {
           const platformLoggerProvider = container.getProvider(
             'platform-logger'
@@ -95,11 +102,10 @@ describe('Platform Logger Service Integration Tests', () => {
           const platformLogger = (await platformLoggerProvider.get()) as PlatformLoggerService;
           const platformInfoString = platformLogger.getPlatformInfoString();
           expect(platformInfoString).to.include('fire-analytics/1.2.3');
-          return {};
         },
         ComponentType.PUBLIC
       )
     );
-    (firebase as any).test();
+    (firebase as any)['test-shell']();
   });
 });
