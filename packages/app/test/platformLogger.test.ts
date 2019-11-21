@@ -88,10 +88,7 @@ describe('Platform Logger Service Integration Tests', () => {
 
   it(`logs other components' versions`, () => {
     firebase.initializeApp({});
-    (firebase as _FirebaseNamespace).registerVersion(
-      'analytics',
-      '1.2.3'
-    );
+    (firebase as _FirebaseNamespace).registerVersion('analytics', '1.2.3');
     (firebase as _FirebaseNamespace).INTERNAL.registerComponent(
       new Component(
         'test-shell',
