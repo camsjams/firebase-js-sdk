@@ -17,10 +17,10 @@
 
 import { ComponentContainer, ComponentType } from '@firebase/component';
 import { VersionService } from './version-service';
-import { platformLogString } from './constants';
+import { PLATFORM_LOG_STRING } from './constants';
 
 export class PlatformLoggerService {
-  constructor(private container: ComponentContainer) {}
+  constructor(private readonly container: ComponentContainer) {}
   // In initial implementation, this will be called by installations on
   // auth token refresh, and installations will send this string.
   getPlatformInfoString(): string {
@@ -29,18 +29,19 @@ export class PlatformLoggerService {
     // version components.
     return providers
       .map(provider => {
-        const service = provider.getImmediate();
+        const service = provider.getImmediate() as VersionService;
         const component = provider.getComponent();
         if (service && component && component.type === ComponentType.VERSION) {
           const platformString =
-            platformLogString[(service as VersionService).library] ||
-            (service as VersionService).library;
-          return `${platformString}/${(service as VersionService).version}`;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (PLATFORM_LOG_STRING as any)[service.library] ||
+            service.library;
+          return `${platformString}/${service.version}`; 
         } else {
           return null;
         }
       })
-      .filter((logString: string | null) => logString)
+      .filter(logString => logString)
       .join(' ');
   }
 }

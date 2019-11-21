@@ -50,5 +50,5 @@ export function registerFunctions(instance: _FirebaseNamespace): void {
       .setServiceProps(namespaceExports)
       .setMultipleInstances(true)
   );
-  instance.INTERNAL.registerVersionComponent('functions', version);
+  instance.registerVersion('functions', version);
 }

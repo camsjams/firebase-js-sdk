@@ -17,7 +17,7 @@
 
 export const DEFAULT_ENTRY_NAME = '[DEFAULT]';
 
-export const platformLogString: { [key: string]: string } = {
+export const PLATFORM_LOG_STRING = {
   'firebase': 'fire-js',
   'app': 'fire-core',
   'analytics': 'fire-analytics',
@@ -29,4 +29,4 @@ export const platformLogString: { [key: string]: string } = {
   'remote-config': 'fire-rc',
   'storage': 'fire-gcs',
   'firestore': 'fire-fst'
-};
+} as const;

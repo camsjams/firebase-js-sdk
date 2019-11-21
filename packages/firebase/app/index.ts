@@ -18,7 +18,7 @@
 import firebase from '@firebase/app';
 import { _FirebaseNamespace } from '@firebase/app-types/private';
 
-(firebase as _FirebaseNamespace).INTERNAL.registerVersionComponent(
+(firebase as _FirebaseNamespace).registerVersion(
   'firebase',
   firebase.SDK_VERSION
 );

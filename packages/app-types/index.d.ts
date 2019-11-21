@@ -98,6 +98,16 @@ export interface FirebaseNamespace {
    */
   apps: FirebaseApp[];
 
+  /**
+   * Registers a library's name and version for platform logging purposes.
+   * @param library Name of 1p or 3p library (e.g. firestore, angularfire)
+   * @param version Current version of that library.
+   */
+  registerVersion(
+    library: string,
+    version: string
+  ): void
+
   // The current SDK version.
   SDK_VERSION: string;
 }

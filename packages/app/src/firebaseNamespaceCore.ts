@@ -60,12 +60,12 @@ export function createFirebaseNamespaceCore(
     initializeApp,
     // @ts-ignore
     app,
+    registerVersion,
     // @ts-ignore
     apps: null,
     SDK_VERSION: version,
     INTERNAL: {
       registerComponent,
-      registerVersionComponent,
       removeApp,
       components,
       useAsService
@@ -236,16 +236,18 @@ export function createFirebaseNamespaceCore(
       : null;
   }
 
-  function registerVersionComponent(
+  function registerVersion(
     library: string,
     version: string
-  ): FirebaseServiceNamespace<FirebaseService> | null {
-    return registerComponent(
+  ): void {
+    if (library.match(/\s|\//)) {
+      logger.warn(`Could not register ${library}: it contains illegal characters.`);
+      return;
+    }
+    registerComponent(
       new Component(
         `${library}-version` as Name,
-        () => {
-          return new VersionService(library, version);
-        },
+        () => new VersionService(library, version),
         ComponentType.VERSION
       )
     );
