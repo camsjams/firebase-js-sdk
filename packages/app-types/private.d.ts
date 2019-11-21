@@ -111,11 +111,6 @@ export interface _FirebaseNamespace extends FirebaseNamespace {
       component: Component
     ): FirebaseServiceNamespace<FirebaseService> | null;
 
-    registerVersionComponent(
-      library: string,
-      version: string
-    ): FirebaseServiceNamespace<FirebaseService> | null;
-
     /**
      * Just used for testing to start from a fresh namespace.
      */
