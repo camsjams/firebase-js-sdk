@@ -88,10 +88,7 @@ declare namespace firebase {
    * @param library Name of 1p or 3p library (e.g. firestore, angularfire)
    * @param version Current version of that library.
    */
-  function registerVersion(
-    library: string,
-    version: string
-  ): void
+  function registerVersion(library: string, version: string): void;
 
   /**
    * @hidden

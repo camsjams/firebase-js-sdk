@@ -236,12 +236,11 @@ export function createFirebaseNamespaceCore(
       : null;
   }
 
-  function registerVersion(
-    library: string,
-    version: string
-  ): void {
+  function registerVersion(library: string, version: string): void {
     if (library.match(/\s|\//)) {
-      logger.warn(`Could not register ${library}: it contains illegal characters.`);
+      logger.warn(
+        `Could not register ${library}: it contains illegal characters.`
+      );
       return;
     }
     registerComponent(

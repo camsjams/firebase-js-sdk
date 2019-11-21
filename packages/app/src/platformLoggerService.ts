@@ -34,9 +34,8 @@ export class PlatformLoggerService {
         if (service && component && component.type === ComponentType.VERSION) {
           const platformString =
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (PLATFORM_LOG_STRING as any)[service.library] ||
-            service.library;
-          return `${platformString}/${service.version}`; 
+            (PLATFORM_LOG_STRING as any)[service.library] || service.library;
+          return `${platformString}/${service.version}`;
         } else {
           return null;
         }
